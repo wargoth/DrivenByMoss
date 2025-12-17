@@ -9,6 +9,7 @@
 	<version>26.4.1</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<bitwig.extension.directory>${user.home}/Bitwig Studio/Extensions</bitwig.extension.directory>
 	</properties>
 
 	<licenses>

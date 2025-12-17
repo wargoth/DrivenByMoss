@@ -81,6 +81,9 @@
                   <exclude>com.bitwig:extension-api</exclude>
                 </excludes>
               </artifactSet>
+              <transformers>
+                <transformer />
+              </transformers>
               <filters>
                 <filter>
                   <artifact>net.java.dev.jna:*</artifact>
@@ -234,5 +237,6 @@
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <bitwig.extension.directory>${user.home}/Bitwig Studio/Extensions</bitwig.extension.directory>
   </properties>
 </project>

@@ -50,3 +50,4 @@ de.mossgrabers.bitwig.controller.oxi.one.OxiOneControllerExtensionDefinition
 de.mossgrabers.bitwig.controller.utilities.autocolor.AutoColorExtensionDefinition
 de.mossgrabers.bitwig.controller.utilities.midimonitor.MidiMonitorExtensionDefinition
 de.mossgrabers.bitwig.controller.yaeltex.turn.YaeltexTurnControllerExtensionDefinition
+de.mossgrabers.bitwig.controller.synthstrom.deluge.DelugeControllerExtensionDefinition
