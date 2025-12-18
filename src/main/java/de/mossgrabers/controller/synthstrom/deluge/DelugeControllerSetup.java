@@ -278,6 +278,11 @@ public class DelugeControllerSetup extends AbstractControllerSetup<DelugeControl
      */
     private void handleVerticalEncoder(final int delta) {
         final IView view = this.getSurface().getViewManager().getActive();
+        if (view instanceof DelugeClipView) {
+            ((DelugeClipView) view).scrollVertical(delta);
+            return;
+        }
+
         if (view instanceof TransposeView) {
             final TransposeView transposeView = (TransposeView) view;
             if (delta > 0)

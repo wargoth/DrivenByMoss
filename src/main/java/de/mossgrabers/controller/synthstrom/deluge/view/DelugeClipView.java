@@ -310,7 +310,27 @@ public class DelugeClipView extends AbstractNoteSequencerView<DelugeControlSurfa
      */
     public void setResolutionIndex(final int index) {
         final int clampedIndex = Math.max(0, Math.min(7, index));
-        this.getClip().setStepLength(Resolution.getValueAt(clampedIndex));
+        final double newStepLength = Resolution.getValueAt(clampedIndex);
+
+        final INoteClip clip = this.getClip();
+        clip.setStepLength(newStepLength);
+
+        // Ensure we are not viewing an empty page after zooming out
+        final double loopEnd = clip.getLoopStart() + clip.getLoopLength();
+        // Calculate start beat of current page with new resolution
+        final int currentPage = clip.getEditPage();
+        final double pageStartBeat = currentPage * 16 * newStepLength;
+
+        if (pageStartBeat >= loopEnd) {
+            // We are outside the loop - scroll to the last visible page
+            // Calculate how many beats fit in one page (16 steps)
+            final double beatsPerPage = 16 * newStepLength;
+            // Calculate last page index (0-based)
+            // Use a small epsilon to handle exact boundaries correctly
+            final int lastPage = Math.max(0, (int) Math.ceil((loopEnd - 0.001) / beatsPerPage) - 1);
+            clip.scrollToPage(lastPage);
+        }
+
         this.surface.getDisplay().notify(Resolution.getNameAt(clampedIndex));
     }
 
@@ -410,6 +430,23 @@ public class DelugeClipView extends AbstractNoteSequencerView<DelugeControlSurfa
         } else {
             // Regular note - Dim white
             this.surface.setSidebarPadColor(1, row, 40, 40, 40);
+        }
+    }
+
+    /**
+     * Scroll the view vertically by a number of notes.
+     * 
+     * @param delta The number of notes to scroll (positive for up, negative for
+     *              down)
+     */
+    public void scrollVertical(final int delta) {
+        if (!this.isActive())
+            return;
+
+        final int newValue = this.offsetY + delta;
+        // Limit range roughly to MIDI bounds (0-127), allowing for window size
+        if (newValue >= 0 && newValue < 128 - this.numSequencerRows) {
+            this.updateOctave(newValue);
         }
     }
 
