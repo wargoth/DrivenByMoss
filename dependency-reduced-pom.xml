@@ -81,9 +81,6 @@
                   <exclude>com.bitwig:extension-api</exclude>
                 </excludes>
               </artifactSet>
-              <transformers>
-                <transformer />
-              </transformers>
               <filters>
                 <filter>
                   <artifact>net.java.dev.jna:*</artifact>
